@@ -17,20 +17,20 @@ function letterCombinations(input_digit) {
   
   const result = [];
   
-  const backtrack = function(current,digits) {
-    if (digits.length === 0) {
+  const backtrack = function(current,input_digit) {
+    if (input_digit.length === 0) {
       result.push(current);
       return;
     }
     
-    const letters = map[digits[0]];
+    const letters = map[input_digit[0]];
     
     for (let i = 0; i < letters.length; i++) {
-      backtrack(current + letters[i], digits.slice(1));
+      backtrack(current + letters[i], input_digit.slice(1));
     }
   }
   
-  backtrack("", digits);
+  backtrack("", input_digit);
   
   return result;
 }

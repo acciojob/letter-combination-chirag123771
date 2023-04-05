@@ -1,31 +1,34 @@
-function letterCombinations(digits) {
-  // Mapping of digit to letters
-  const map = {
-    '2': 'abc',
-    '3': 'def',
-    '4': 'ghi',
-    '5': 'jkl',
-    '6': 'mno',
-    '7': 'pqrs',
-    '8': 'tuv',
-    '9': 'wxyz'
-  };
-  // Base case: empty input string
-  if (digits.length === 0) {
-    return [];
-  }
-  // Recursive case: process the first digit and combine with the rest
-  const firstDigit = digits.charAt(0);
-  const restDigits = digits.slice(1);
-  const restCombinations = letterCombinations(restDigits);
-  const firstLetters = map[firstDigit].split('');
-  // Combine the first letters with the rest combinations
-  const combinations = [];
-  for (const letter of firstLetters) {
-    for (const restCombination of restCombinations) {
-      combinations.push(letter + restCombination);
+def letterCombinations(digits):
+    """
+    :type digits: str
+    :rtype: List[str]
+    """
+    if not digits:
+        return []
+    
+    # Create a mapping of digits to their corresponding letters
+    mapping = {
+        '2': 'abc',
+        '3': 'def',
+        '4': 'ghi',
+        '5': 'jkl',
+        '6': 'mno',
+        '7': 'pqrs',
+        '8': 'tuv',
+        '9': 'wxyz'
     }
-  }
-  // Sort the combinations lexicographically
-  return combinations.sort();
-}
+    
+    # Define the recursive function that generates all possible combinations of letters
+    def generateCombinations(index, current):
+        if index == len(digits):
+            # Base case: we have generated a complete combination of letters
+            result.append(current)
+        else:
+            # Recursive case: for each letter corresponding to the current digit, generate all possible combinations
+            for letter in mapping[digits[index]]:
+                generateCombinations(index+1, current+letter)
+    
+    # Call the recursive function to generate all possible combinations of letters
+    result = []
+    generateCombinations(0, '')
+    return result

@@ -1,40 +1,31 @@
-function letterCombinations(input_digit) {
-  //Complete the functionconst letterCombinations = function(digits) {
-  if (!input_digit) {
+function letterCombinations(digits) {
+  // Mapping of digit to letters
+  const map = {
+    '2': 'abc',
+    '3': 'def',
+    '4': 'ghi',
+    '5': 'jkl',
+    '6': 'mno',
+    '7': 'pqrs',
+    '8': 'tuv',
+    '9': 'wxyz'
+  };
+  // Base case: empty input string
+  if (digits.length === 0) {
     return [];
   }
-  
-  const map = {
-    "2": "abc",
-    "3": "def",
-    "4": "ghi",
-    "5": "jkl",
-    "6": "mno",
-    "7": "pqrs",
-    "8": "tuv",
-    "9": "wxyz"
-  };
-  
-  const result = [];
-  
-  const backtrack = function(current,input_digit) {
-    if (input_digit.length === 0) {
-      result.push(current);
-      return;
-    }
-    
-    const letters = map[input_digit[0]];
-    
-    for (let i = 0; i < letters.length; i++) {
-      backtrack(current + letters[i], input_digit.slice(1));
+  // Recursive case: process the first digit and combine with the rest
+  const firstDigit = digits.charAt(0);
+  const restDigits = digits.slice(1);
+  const restCombinations = letterCombinations(restDigits);
+  const firstLetters = map[firstDigit].split('');
+  // Combine the first letters with the rest combinations
+  const combinations = [];
+  for (const letter of firstLetters) {
+    for (const restCombination of restCombinations) {
+      combinations.push(letter + restCombination);
     }
   }
-  
-  backtrack("", input_digit);
-  
-  return result;
+  // Sort the combinations lexicographically
+  return combinations.sort();
 }
-
-}
-
-module.exports = letterCombinations;
